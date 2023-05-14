@@ -13,7 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.*;
 
+/**
+ * @author Eero Häggroth
+ * @version 1.1 2023/05/08
+ */
 public class MusicStoreApp extends Application {
+
+    /**
+     * Annetaan alkuun arvoja ohjelmalle, jotta dataa on valmiina.
+     */
 
     private final ObservableList<CD> cds = FXCollections.observableArrayList(
             new CD("Michael Jackson", "Thriller", 1982, 10.99),
@@ -27,13 +35,23 @@ public class MusicStoreApp extends Application {
             new Record("Prince", "Purple Rain", 1984, 14.99)
     );
     private final ObservableList<Item> cart = FXCollections.observableArrayList();
+
+    /**
+     * Data tallennetaan data.txt fileen.
+     */
     private final File file = new File("data.txt");
 
+
+    /**
+     * Luodaan stagelle kentät ja napit.
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Music Store");
 
-        // Set up UI elements
+        /**
+         * Set up UI elements
+         */
         Label titleLabel = new Label("Music Store");
 
         Label cdLabel = new Label("CDs");
@@ -52,6 +70,11 @@ public class MusicStoreApp extends Application {
 
         Button searchButton = new Button("Search");
 
+
+        /**
+        * Lisäys button, joka siirtää annetun CD:n Checkout listalle.
+        */
+
         Button addCdButton = new Button("Add CD to Cart");
         addCdButton.setOnAction(event -> {
             CD selectedCd = cdListView.getSelectionModel().getSelectedItem();
@@ -59,6 +82,10 @@ public class MusicStoreApp extends Application {
                 cart.add(selectedCd);
             }
         });
+
+        /**
+         * Remove button, joka poistaa annetun CD:n Checkout listalta.
+         */
 
         Button removeCdButton = new Button("Remove CD from Cart");
         removeCdButton.setOnAction(event -> {
@@ -68,6 +95,10 @@ public class MusicStoreApp extends Application {
             }
         });
 
+        /**
+         * Lisäys button, joka siirtää annetun Recording:n Checkout listalle.
+         */
+
         Button addRecordButton = new Button("Add Record to Cart");
         addRecordButton.setOnAction(event -> {
             Record selectedRecord = recordListView.getSelectionModel().getSelectedItem();
@@ -75,6 +106,10 @@ public class MusicStoreApp extends Application {
                 cart.add(selectedRecord);
             }
         });
+
+        /**
+         * Remove button, joka poistaa annetun CD:n Checkout listalta.
+         */
 
         Button removeRecordButton = new Button("Remove Record from Cart");
         removeRecordButton.setOnAction(event -> {
@@ -84,11 +119,19 @@ public class MusicStoreApp extends Application {
             }
         });
 
+        /**
+         * Checkout button, joka laskee Checkout listan CD + Record hinnat yhteen.
+         */
+
         Button checkoutButton = new Button("Checkout");
         checkoutButton.setOnAction(event -> {
             double total = cart.stream().mapToDouble(Item::getPrice).sum();
             totalLabel.setText("Total: $" + String.format("%.2f", total));
         });
+
+        /**
+         * Lisätään ohjelmaan uusi CD, jolle annetaan tiedot omille kohdilleen. Annetut tiedot siirretään Data.txt fileen.
+         */
 
         TextField artistField;
         artistField = new TextField();
@@ -114,6 +157,10 @@ public class MusicStoreApp extends Application {
             saveDataToFile();
         });
 
+        /**
+         * Lisätään ohjelmaan uusi Record, jolle annetaan tiedot omille kohdilleen. Annetut tiedot siirretään Data.txt fileen.
+         */
+
         TextField artistField2 = new TextField();
         artistField2.setPromptText("Artist");
 
@@ -136,7 +183,10 @@ public class MusicStoreApp extends Application {
             saveDataToFile();
         });
 
-        // Set up layout
+        /**
+         * Set up layout
+         */
+
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -171,12 +221,18 @@ public class MusicStoreApp extends Application {
         gridPane.add(recordBox, 0, 3);
         gridPane.add(cartBox, 1, 2, 1, 2);
 
-        // Set up scene
+        /**
+         * Set up scene
+         */
         Scene scene = new Scene(gridPane, 800, 600);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    /**
+     * CD:n ja Recordien tallennus.
+     */
 
     private void saveDataToFile() {
         try {
@@ -193,15 +249,46 @@ public class MusicStoreApp extends Application {
         }
     }
 
+    /**
+     * Ohjelman käynnistävä metodi.
+     */
+
     public static void main(String[] args) {
         launch(args);
     }
 
+    /** Luokka toteuttaa yksinkertaisen CD:n ja Recording (LP:n), jolla on
+     * nimi (artist), albumi (album), vuosi (year) ja hinnan (price).
+     */
     private abstract static class Item {
+
+        /**
+         * Artistin nimi
+         */
         private final String artist;
+
+        /**
+         * Albumin nimi
+         */
         private final String album;
+
+        /**
+         * Vuosiluku kokonaislukuna
+         */
         private final int year;
+
+        /**
+         * Hinta desimaalilukuna
+         */
         private final double price;
+
+        /**
+         * Item perustiedoilla.
+         * @param artist String artisti
+         * @param album String albumi
+         * @param year int vuosi
+         * @param price double hinta
+         */
 
         public Item(String artist, String album, int year, double price) {
             this.artist = artist;

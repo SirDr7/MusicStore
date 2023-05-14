@@ -2,7 +2,7 @@ Michael Jackson,1982,10.99
 The Beatles,1969,9.99
 Pink Floyd,1979,12.99
 Jorma Uotila,1679,121.30
+Käärijä,2023,43.00
 Led Zeppelin,1971,19.99
 Fleetwood Mac,1977,17.99
 Prince,1984,14.99
-§12§1,2134,153.00

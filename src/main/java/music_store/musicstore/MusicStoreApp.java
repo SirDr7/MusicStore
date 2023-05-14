@@ -11,9 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.*;
-import java.util.Scanner;
 
 public class MusicStoreApp extends Application {
 
@@ -30,7 +28,6 @@ public class MusicStoreApp extends Application {
     );
     private final ObservableList<Item> cart = FXCollections.observableArrayList();
     private final File file = new File("data.txt");
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -139,29 +136,6 @@ public class MusicStoreApp extends Application {
             saveDataToFile();
         });
 
-/*        private void loadDataFromFile() {
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(",");
-                    String artist = parts[0];
-                    String title = parts[0];
-                    int year = Integer.parseInt(parts[1]);
-                    double price = Double.parseDouble(parts[2]);
-                    records.add(new Record(artist, title, year, price));
-                    cds.add(new CD(artist, title, year, price));
-                }
-                scanner.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("Inventory file not found.");
-            }
-        }
-*/
-
-
-
-
         // Set up layout
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -204,7 +178,6 @@ public class MusicStoreApp extends Application {
         primaryStage.show();
     }
 
-
     private void saveDataToFile() {
         try {
             PrintWriter writer = new PrintWriter(file);
@@ -220,28 +193,9 @@ public class MusicStoreApp extends Application {
         }
     }
 
-
-
-
-/*    private void saveData() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt"));
-            for (CD cd : cds) {
-                writer.write(String.format("%s,%d,%.2f\n", cd.getArtist(), cd.getYear(), cd.getPrice()));
-            }
-            for (Record record : records) {
-                writer.write(String.format("%s,%d,%.2f\n", record.getArtist(), record.getYear(), record.getPrice()));
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-*/
     public static void main(String[] args) {
         launch(args);
     }
-
 
     private abstract static class Item {
         private final String artist;
@@ -283,6 +237,11 @@ public class MusicStoreApp extends Application {
         public String getDescription() {
             return getArtist() + " - " + getAlbum() + " (CD)";
         }
+
+        @Override
+        public String toString() {
+            return getArtist() + " " + getAlbum();
+        }
     }
 
     private static class Record extends Item {
@@ -291,8 +250,11 @@ public class MusicStoreApp extends Application {
         }
 
         public String getDescription() {
-            return getArtist() + " - " + getAlbum() + " (Record)";
+            return getArtist() + " - " + getAlbum() + " (Record)";}
 
+        @Override
+        public String toString() {
+            return getArtist() + " - " + getAlbum();
         }
     }
 }

@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * @author Eero Häggroth
@@ -23,17 +25,17 @@ public class MusicStoreApp extends Application {
      * Annetaan alkuun arvoja ohjelmalle, jotta dataa on valmiina.
      */
 
-    private final ObservableList<CD> cds = FXCollections.observableArrayList(
-            new CD("Michael Jackson", "Thriller", 1982, 10.99),
+    private final ObservableList<CD> cds = FXCollections.observableArrayList();
+/*            new CD("Michael Jackson", "Thriller", 1982, 10.99),
             new CD("The Beatles", "Abbey Road", 1969, 9.99),
             new CD("Pink Floyd", "The Wall", 1979, 12.99),
             new CD("Jorma Uotila", "SuperbongWall", 1679, 121.30)
     );
-    private final ObservableList<Record> records = FXCollections.observableArrayList(
-            new Record("Led Zeppelin", "IV", 1971, 19.99),
+*/    private final ObservableList<Record> records = FXCollections.observableArrayList();
+/*            new Record("Led Zeppelin", "IV", 1971, 19.99),
             new Record("Fleetwood Mac", "Rumours", 1977, 17.99),
             new Record("Prince", "Purple Rain", 1984, 14.99)
-    );
+    );*/
     private final ObservableList<Item> cart = FXCollections.observableArrayList();
 
     /**
@@ -316,7 +318,7 @@ public class MusicStoreApp extends Application {
         public abstract String getDescription();
     }
 
-    private static class CD extends Item {
+    private class CD extends Item {
         public CD(String artist, String album, int year, double price) {
             super(artist, album, year, price);
         }
@@ -331,11 +333,11 @@ public class MusicStoreApp extends Application {
         }
     }
 
-    private static class Record extends Item {
+    private class Record extends Item {
         public Record(String artist, String album, int year, double price) {
             super(artist, album, year, price);
         }
-
+        @Override
         public String getDescription() {
             return getArtist() + " - " + getAlbum() + " (Record)";}
 

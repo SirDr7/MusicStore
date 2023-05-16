@@ -39,3 +39,92 @@
 
 
 
+    private void loadDataFromFile() {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(",");
+                String artist = parts[0];
+                String title = parts[0];
+                int year = Integer.parseInt(parts[1]);
+                double price = Double.parseDouble(parts[2]);
+                records.add(new Record(artist, title, year, price));
+                cds.add(new CD(artist, title, year, price));
+                MusicStoreApp.Item item = new Item(artist) {
+                    ínventory.add
+
+                    @Override
+                    public String getDescription() {
+                        return null;
+                    }
+                };
+                inventory.add(item);
+                stock.put(item, quantity);
+                prices.put(item, price);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Inventory file not found.");
+        }
+    }
+
+
+
+
+/*
+    private void viewItems() {
+        StringBuilder items = new StringBuilder();
+        items.append(String.format("%-20s%-10s%-10s\n", "Item", "Price", "Quantity"));
+        items.append("--------------------------------------------------\n");
+        for (Map.Entry<Item, Integer> entry : stock.entrySet()) {
+            Item item = entry.getKey();
+            double price = prices.get(item);
+            int quantity = entry.getValue();
+            inventory.append(String.format("%-20s%-10.2f%-10d\n", item.getName(), price, quantity));
+        }
+        inventoryTextArea.setText(inventory.toString());
+    }
+
+    private void updateInventory() {
+        inventoryTextArea.setText("");
+        for (Item item : inventory) {
+            String itemName = item.getName();
+            int itemStock = stock.get(item);
+            double itemPrice = prices.get(item);
+            inventoryTextArea.append(itemName + " - " + itemStock + " in stock, €" + itemPrice + " each\n");
+        }
+    }
+*/
+     * metodi lukee tiedostosta tilin tiedot
+     */
+    private void lueTiedosto() {
+
+        File tiedostoTesti = new File("tilit.dat");
+        if (tiedostoTesti.exists()) {
+            try {
+                FileInputStream tiedosto = new FileInputStream("tilit.dat");
+                ObjectInputStream tiedostoOlio = new ObjectInputStream(tiedosto);
+                this.tili = (Pankkitili) tiedostoOlio.readObject();
+                tiedosto.close();
+            } catch (EOFException e) {
+                System.err.println("Virhe. Tiedostosta yritettiin lukea tiedoston lopun ohi.");
+            } catch (IOException e) {
+                System.err.println("Virhe. Tiedosto löytyi, mutta lukeminen päättyi virheeseen.");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Virhe. Sarjallistettua luokkaa ei löytynyt.");
+            }
+        }
+        else {
+            System.out.println("Tiedostoa ei löytynyt.");
+            this.tili = new Pankkitili("12345 98765", 1.1, 1000 );
+        }
+
+    }
+
+            lueTiedosto();
+            // tilin alkuasetukset naytolle
+            tfTilinumero.setText(tili.getTilinumero());
+            tfTilinvuosikorko.setText(String.format("%.2f", tili.getVuosiKorko()));
+            tfTilinSaldo.setText(String.format("%.2f", tili.getSaldo()));
+            teksti.setText("asetettiin tilin tiedot");

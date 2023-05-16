@@ -46,25 +46,15 @@
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
                 String artist = parts[0];
-                String title = parts[0];
-                int year = Integer.parseInt(parts[1]);
-                double price = Double.parseDouble(parts[2]);
+                String title = parts[1];
+                int year = Integer.parseInt(parts[2]);
+                double price = Double.parseDouble(parts[3]);
                 records.add(new Record(artist, title, year, price));
                 cds.add(new CD(artist, title, year, price));
-                MusicStoreApp.Item item = new Item(artist) {
-                    ínventory.add
+                scanner.close();
+                }
 
-                    @Override
-                    public String getDescription() {
-                        return null;
-                    }
-                };
-                inventory.add(item);
-                stock.put(item, quantity);
-                prices.put(item, price);
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
+                catch (FileNotFoundException e) {
             System.out.println("Inventory file not found.");
         }
     }

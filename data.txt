@@ -1,2 +1,5 @@
-sdaasd,2342,13.00
-asdf,1231,14.00
+Jannw;Helsinki;1881;17
+Eero;Lahti;1841;19
+Jannw;Helsinki;1881;17
+Eero;Lahti;1841;19
+janne2 ;record;2831;50

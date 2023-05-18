@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"music_store.musicstore","l":"MusicStoreApp"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"music_store.musicstore","l":"CD"},{"p":"music_store.musicstore","l":"Item"},{"p":"music_store.musicstore","l":"MusicStoreApp"},{"p":"music_store.musicstore","l":"Record"}];updateSearchResults();
